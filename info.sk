@@ -1,0 +1,55 @@
+#Informationsplugin made by sehrschlecht36
+#Bitte stehle diesen Code nicht!
+
+options:
+	AdminPrefix: §7[§6InfoPlugin§7]
+	Prefix: §7[§6Information§7]
+command /information:
+	aliases: /info
+	permission: pm.info.show
+	trigger:
+		send "{@Prefix} &rInstagram: &6%{info.instagram}%" to player
+		send "{@Prefix} &rTwitter: &6%{info.twitter}%" to player
+		send "{@Prefix} &rWebsite: &6%{info.website}%" to player
+		send "{@Prefix} &rForum: &6%{info.forum}%" to player
+		send "{@Prefix} &rShop: &6%{info.shop}%" to player
+		stop trigger
+
+command /setinformation [<Text>] [<Text>]:
+	aliases: /setinfo
+	permission: pm.info.set
+	trigger:
+		if arg 1 is set:
+			if arg 2 is set:
+				set {info.%arg 1%} to arg 2
+				send "{@AdminPrefix} &rDie Information &6%arg 1% &rwurde erfolgreich auf &6%arg 2% &rgesetzt." to player
+				stop trigger
+			else:
+				send "{@AdminPrefix} &rBitte gebe einen Benutzernamen/Link an."
+			
+		else:
+			send "{@AdminPrefix} &rEs gibt folgende Informationen: &6Instagram, Twitter, Website, Forum, Shop."
+			stop trigger
+		stop trigger
+			
+command /delinfo [<Text>]:
+	permission: pm.info.delete
+	trigger:
+		if arg 1 is set:
+			if {info.%arg 1%} is set:
+				delete {info.%arg 1%}
+				send "{@AdminPrefix} &rDie Information &6%arg 1% &rwurde erfolgreich gelöscht." to player
+				stop trigger
+			else:
+				send "{@AdminPrefix} &rDie Information &6%arg 1% &rist nicht vorhanden." to player
+				stop trigger
+			stop trigger
+		else:
+			send "{@AdminPrefix} &rEs gibt folgende Informationen: &6Instagram, Twitter, Website, Forum, Shop."
+			stop trigger
+		stop trigger
+		
+command /information:test:
+	trigger:
+		send "Test!" to player
+		stop trigger
